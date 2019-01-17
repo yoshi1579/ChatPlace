@@ -1,0 +1,28 @@
+.chat-main__user   
+  .chat-main__user-content
+    .chat-main__user-name
+      %p 
+        = @group.name
+    = link_to edit_group_path(@group) do 
+      %button.btn.btn-light.chat-main__group-button{:type => "button"} Edit
+    %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+      %span.sr-only Toggle navigation
+      
+  #navbar.navbar-collapse.collapse 
+    %ul.nav.navbar-nav.navbar-right
+      =render partial: 'side_bar'
+    
+.container
+  .mesgs
+    = render @messages
+%footer.footer
+  .input-msg   
+    .input-msg__write
+      = form_for [@group, @message] do |f| 
+        = f.text_field :content, class: 'write_msg', placeholder: "Type a message"          
+        = f.label :image, class: 'input-msg__send-pic' do 
+          = fa_icon 'picture-o', class: 'icon'
+          = f.file_field :image, class: 'input-msg__send-pic--hidden'
+        %button.msg_send_btn{:type => "submit"}
+          %i.fa.fa-paper-plane-o{"aria-hidden" => "true"}
+                    
