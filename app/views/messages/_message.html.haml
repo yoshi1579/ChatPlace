@@ -1,0 +1,9 @@
+.sent_msg
+    %p 
+        = message.content
+    - if message.image?
+        .sent_msg__image
+            = image_tag message.image.to_s, size: "100x100"
+    %span.time_date 
+        = message.user.name 
+        = message.created_at
