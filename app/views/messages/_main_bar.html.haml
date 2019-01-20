@@ -19,7 +19,7 @@
 %footer.footer
   .input-msg        
     .input-msg__write
-      = form_for [@group, @message], html: { class: 'form js-form' } do |f| 
+      = form_for [@group, @message] do |f| 
         = f.text_field :content, class: 'write_msg', placeholder: "Type a message"          
         = f.label :image, class: 'input-msg__send-pic' do 
           = fa_icon 'picture-o', class: 'icon'

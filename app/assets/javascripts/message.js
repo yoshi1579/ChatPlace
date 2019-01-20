@@ -64,11 +64,9 @@ $(function() {
   };
 
   // 非同期でメッセージ送信
-  $('.js-form').submit(function(e) {
+  $('#new_message').submit(function(e) {
     e.preventDefault();  // submitによるフォームの送信を中止
     var form = $(this).get(0);
-    var textField = $('.write_msg');
-    var imageField = $('input-msg__send-pic--hidden');
     var formdata = new FormData(form);
     $.ajax({
       type: 'POST',
@@ -81,8 +79,6 @@ $(function() {
     })
     .done(function(data) {
       addMessages(data);
-      // textField.val(''); 
-      // imageField.val('');
       form.reset();
     })
     .fail(function() {
