@@ -1,5 +1,5 @@
 .sent_msg
-    %p 
+    %p.messages{"data-id" => "#{message.id}" }
         = message.content
     - if message.image?
         .sent_msg__image

@@ -10,10 +10,9 @@ $(function() {
         </div>
       `;
     }
-
     var html = `
     <div class="sent_msg">
-      <p>
+      <p class="messages" data-id="${message.id}">
         ${message.content}
       </p>
       
@@ -27,11 +26,47 @@ $(function() {
     return html;
   }
 
-  // CreateTodoボタンが押されたら発火
+  $(function(){
+    // 10s ごとにメッセージを非同期で更新
+    setInterval(update, 10000);
+  });
+
+  // 表示されている最後のメッセージIDの取得
+  function getLastMessageID(){
+    if($('.messages')[0])
+      return $('.messages:last').data('id');
+    else  
+      return 0;
+  }
+
+  // 非同期でメッセージを自動更新
+  function update(){
+    var last_message_id = getLastMessageID();
+    $.ajax({
+      type: 'GET',
+      url: window.location.href,
+      data: {
+        message: { id: last_message_id }
+      },
+      dataType: 'json',
+    })
+    .always(function(data) {
+      addMessages(data);
+    });
+  }
+
+  //返ってきたデータをhtml に付け加える
+  function addMessages(data) {
+    $.each(data, function(i, data){
+      var html = buildHTML(data);  
+      $('.mesgs').append(html);
+    });
+  };
+  
+  // 非同期でメッセージ送信
   $('.js-form').submit(function(e) {
     e.preventDefault();  // submitによるフォームの送信を中止
     
-    // テキストフィールドの中身を取得
     var textField = $('.write_msg');
     var formdata = new FormData($(this).get(0));
     $.ajax({
@@ -44,9 +79,8 @@ $(function() {
       disabled: false
     })
     .done(function(data) {
-      var html = buildHTML(data);  //返ってきたデータをbuildHTMLに渡す
-      $('.mesgs').append(html);  //作成したhtmlをビューに追加
-      textField.val('');  //テキストフィールドを空に
+      addMessages(data);
+      textField.val(''); 
     })
     .fail(function() {
       alert('error')
