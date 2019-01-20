@@ -62,13 +62,14 @@ $(function() {
       $('.mesgs').append(html);
     });
   };
-  
+
   // 非同期でメッセージ送信
   $('.js-form').submit(function(e) {
     e.preventDefault();  // submitによるフォームの送信を中止
-    
+    var form = $(this).get(0);
     var textField = $('.write_msg');
-    var formdata = new FormData($(this).get(0));
+    var imageField = $('input-msg__send-pic--hidden');
+    var formdata = new FormData(form);
     $.ajax({
       type: 'POST',
       url: window.location.href,
@@ -80,10 +81,12 @@ $(function() {
     })
     .done(function(data) {
       addMessages(data);
-      textField.val(''); 
+      // textField.val(''); 
+      // imageField.val('');
+      form.reset();
     })
     .fail(function() {
-      alert('error')
+      alert('メッセージを書いてください')
     });
   });
 });
