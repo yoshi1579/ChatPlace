@@ -63,6 +63,15 @@ $(function() {
     });
   };
 
+  function scrollToBottom(){
+    // var chat_main_col = $('.chat-main');
+    // chat_main_col.scrollTop = chat_main_col.scrollHeight;
+    // chat_main_col.scrollTop(chat_main_col[0].scrollHeight);
+    $('html, body').animate({
+      scrollTop: $(document).height()
+    },150);
+  }
+
   // 非同期でメッセージ送信
   $('#new_message').submit(function(e) {
     e.preventDefault();  // submitによるフォームの送信を中止
@@ -80,6 +89,7 @@ $(function() {
     .done(function(data) {
       addMessages(data);
       form.reset();
+      scrollToBottom();
     })
     .fail(function() {
       alert('メッセージを書いてください')
