@@ -15,8 +15,9 @@
 .container
   .mesgs
     = render @messages
+
 %footer.footer
-  .input-msg   
+  .input-msg        
     .input-msg__write
       = form_for [@group, @message] do |f| 
         = f.text_field :content, class: 'write_msg', placeholder: "Type a message"          

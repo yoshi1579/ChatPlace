@@ -16,7 +16,7 @@ describe Message, type: :model do
             end
         end
 
-        context 'can be saved' do
+        context 'cannot be saved' do
             it 'is valid without content and image' do
                 @message = build(:message, image: nil, content: nil)
                 @message.valid?
