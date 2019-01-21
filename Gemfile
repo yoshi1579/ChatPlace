@@ -41,6 +41,7 @@ gem 'byebug'
 gem 'erb2haml'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'devise'
 
 group :production do
   gem 'unicorn'
@@ -56,7 +57,11 @@ group :development, :test do
   gem 'factory_girl_rails', "~> 4.4.1"
   gem 'rails-controller-testing'
   gem 'faker'
-  gem 'devise'
+  gem 'capistrano'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano3-unicorn'
 end
 
 group :development do
